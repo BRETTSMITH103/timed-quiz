@@ -1,10 +1,10 @@
-var timeLeftEl = document.querySelector("#time-left");
-var startScreenEl = document.querySelector("#start-screen");
-var startGameBtnEl = document.querySelector("#start-game-btn");
-var quizContentEl = document.querySelector("#quiz-content");
-var postGameEl = document.querySelector("#post-game-screen");
-var userScoreEl = document.querySelector("#user-score");
-var playAgainBtnEl = document.querySelector("#play-again-btn");
+var timeRemaining = document.querySelector("#time-left");
+var startScreen = document.querySelector("#start-screen");
+var startGameButton = document.querySelector("#start-game-btn");
+var questionsS = document.querySelector("#quiz-content");
+var postGame = document.querySelector("#post-game-screen");
+var finalScore = document.querySelector("#user-score");
+var playAgainButton = document.querySelector("#play-again-btn");
 
 var currentQuestionIndex = 0;
 
@@ -17,15 +17,15 @@ var intervalRunning = false
 function startGame() {
   secondsLeft = questions.length * 6;
 
-  timeLeftEl.textContent = secondsLeft;
+  timeRemaining.textContent = secondsLeft;
 
-  userScoreEl.value = userScoreEl.defaultValue;
+  finalScore.value = finalScore.defaultValue;
 
   if (!intervalRunning) {
     intervalRunning = true;
     timerIntervalId = setInterval(function () {
       secondsLeft--;
-      timeLeftEl.textContent = secondsLeft
+      timeRemaining.textContent = secondsLeft
       console.log(secondsLeft)
       if (secondsLeft === 0) {
 
@@ -77,32 +77,32 @@ function stopGame() {
   console.log("stopGame");
   intervalRunning = false;
   clearInterval(timerIntervalId)
-  quizContentEl.setAttribute("class", "hide");
-  postGameEl.removeAttribute("class");
+  questionsS.setAttribute("class", "hide");
+  postGame.removeAttribute("class");
   userScoreEl.textContent = score;
 }
 
 function playAgain() {
-  postGameEl.setAttribute("class", "hide");
-  quizContentEl.removeAttribute("class");
+  postGame.setAttribute("class", "hide");
+  questionsS.removeAttribute("class");
 
   startGame();
 }
 
-startGameBtnEl.addEventListener("click", function (event) {
+startGameButton.addEventListener("click", function (event) {
   var element = event.target;
   if (element.matches("button") === true) {
-    startScreenEl.setAttribute("class", "hide");
+    startScreen.setAttribute("class", "hide");
 
-    quizContentEl.removeAttribute("class");
+    questionsS.removeAttribute("class");
     startGame();
   }
 });
 
-startGameBtnEl.addEventListener("click", startGame);
+startGameButton.addEventListener("click", startGame);
 
-quizContentEl.addEventListener("click", function (event) {
+questionsS.addEventListener("click", function (event) {
   event.preventDefault();
 });
 
-playAgainBtnEl.addEventListener("click", playAgain);
+playAgainButton.addEventListener("click", playAgain);
